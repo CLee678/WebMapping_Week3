@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cayley Lee - Leaflet PA Cities Map</title>
+
+  <!-- Include Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+</head>
+<body>
+
+  <!-- Create the map div -->
+  <div id="map" style="width: 800px; height: 500px;"></div>
+
+  <!-- Include Leaflet JavaScript -->
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+  <script>
+
+    // L.map: Instantiates a map object given the DOM ID of a <div> element and optionally an object literal with Map options.
+    // setView: Map center and zoom level
+    var map = L.map('map').setView([40.1, -76.5], 8);
+
+    // Tile layer from https://leaflet-extras.github.io/leaflet-providers/preview/
+    var USGS_USTopo = L.tileLayer('https://basemap.nationalmap.gov/arcgis/rest/services/USGSTopo/MapServer/tile/{z}/{y}/{x}', {
+	maxZoom: 20,
+	attribution: 'Tiles courtesy of the <a href="https://usgs.gov/">U.S. Geological Survey</a>'
+}).addTo(map);
+
+    // City data
+    var Harrisburg = {
+      name: 'Harrisburg', 
+      lat: 40.2732,
+      lng: -76.8867,
+      population: 50135
+    }
+    
+    var Lancaster = {
+      name: 'Lancaster',  
+      lat: 40.0379,
+      lng: -76.3055,
+      population: 57503
+    };
+
+    // Add circle 
+    // L.circle: Instantiates a circle object given a geographical point, and an options object which contains the circle radius.
+    // L.tooltip: Instantiates a Tooltip object given an optional options object that describes its appearance and location and 
+            // an optional source object that is used to tag the tooltip with a reference to the Layer to which it refers.
+    // <b> Bold text </b>
+    // <br> line break
+    // <i> Italics text </i>
+       L.circle([Harrisburg.lat, Harrisburg.lng], {
+        radius: Harrisburg.population,
+        color: 'gold',
+        fillColor: 'blue',
+        weight: 3
+        
+        }).bindTooltip ("<b>" + 'Name: ' + "</b>" + "<i>" + Harrisburg.name + "</i>" + "<br>" + "<b>" + 'Population: ' + "</b>"  + "<i>" + Harrisburg.population + "</i>")
+      .addTo(map);
+    
+      
+      L.circle([Lancaster.lat, Lancaster.lng], {
+        radius:   Lancaster.population,
+        color: 'red',
+        fillColor: 'blue',
+        weight: 3
+        
+        }).bindTooltip ("<b>" + 'Name: ' + "</b>" + "<i>" + Lancaster.name + "</i>" + "<br>" + "<b>" + 'Population: ' + "</b>"  + "<i>" + Lancaster.population + "</i>")
+      .addTo(map);
+    
+    
+  </script>
+
+</body>
+</html>
+
+  
